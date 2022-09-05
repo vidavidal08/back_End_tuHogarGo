@@ -4,7 +4,7 @@
     using Microsoft.IdentityModel.Tokens;
     using System.IdentityModel.Tokens.Jwt;
     using System.Text;
-    using TuHogarGO.BL;
+    using TuHogarGO.BL.Contracts;
     using TuHogarGO.Infraestructura.Config;
     public class JwtMiddleware
     {

@@ -1,10 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
-
-namespace TuHogarGO.Entities
+﻿namespace TuHogarGO.Features.RegistrarUsuario.Models
 {
-    [Table("usuarios")]
-    public class Usuario: EntityBase
+    public class RegistrarUsuarioRequest:MediatR.IRequest<RegistrarUsuarioReponse>
     {
         public int RolId { get; set; }
         public int PlanId { get; set; }
@@ -15,7 +11,6 @@ namespace TuHogarGO.Entities
         public int EstadoId { get; set; }
         public DateTime FechaAlta { get; set; }
         public string Email { get; set; }
-        [JsonIgnore]
         public string Pass { get; set; }
     }
 }

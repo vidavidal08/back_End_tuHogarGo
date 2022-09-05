@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using TuHogarGO.BL;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using TuHogarGO.BL.Contracts;
+using TuHogarGO.Features.RegistrarUsuario.Models;
 using TuHogarGO.Infraestructura.Auth;
 using TuHogarGO.Models.Auth;
 
@@ -9,11 +11,12 @@ namespace TuHogarGO.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private IUsuarioService _userService;
-
-        public UsersController(IUsuarioService userService)
+        private readonly IUsuarioService _userService;
+        private readonly IMediator _mediator;
+        public UsersController(IUsuarioService userService, IMediator mediator)
         {
             _userService = userService;
+            _mediator = mediator;
         }
 
         [HttpPost("authenticate")]
@@ -33,6 +36,13 @@ namespace TuHogarGO.Controllers
         {
             var users = _userService.GetAll();
             return Ok(users);
+        }
+        [HttpPost]
+        [Route("RegistrarUsuario")]
+        public async Task<IActionResult> RegistrarUsuario(RegistrarUsuarioRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return CreatedAtAction(nameof(RegistrarUsuario), response);
         }
     }
 }

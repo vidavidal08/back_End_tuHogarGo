@@ -11,6 +11,8 @@ namespace TuHogarGO.Repositories
         T Read(object keys);
         void Update(T entity);
         void Delete(T entity);
+        void SaveChanges();
+        Task<int> SaveChangesAsync();
     }
     public abstract class Repository<T> where T : class
     {
