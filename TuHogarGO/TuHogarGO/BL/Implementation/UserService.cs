@@ -3,25 +3,22 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using TuHogarGO.BL.Contracts;
 using TuHogarGO.Entities;
 using TuHogarGO.Infraestructura.Config;
+using TuHogarGO.Infraestructura.Validaciones;
 using TuHogarGO.Models.Auth;
 using TuHogarGO.Repositories;
 
-namespace TuHogarGO.BL
+namespace TuHogarGO.BL.Implementation
 {
-    public interface IUsuarioService
-    {
-        AuthenticateResponse Authenticate(AuthenticateRequest model);
-        IEnumerable<Usuario> GetAll();
-        Usuario GetById(int id);
-    }
-    public class UsuarioService : IUsuarioService
+    public class UsuarioService :ServiceBase<Usuario>, IUsuarioService
     {
         private readonly IUsuariosRepository _usuariosRepository;
 
         private readonly AppSettings _appSettings;
         public UsuarioService(IOptions<AppSettings> appSettings, IUsuariosRepository usuariosRepository)
+            :base(usuariosRepository)
         {
             _appSettings = appSettings.Value;
             _usuariosRepository = usuariosRepository;
@@ -42,9 +39,7 @@ namespace TuHogarGO.BL
 
         public IEnumerable<Usuario> GetAll()
         {
-           
-               var  _users = _usuariosRepository.GetAll().ToList();
-            
+            var _users = _usuariosRepository.GetAll().ToList();
             return _users;
         }
 
@@ -59,12 +54,17 @@ namespace TuHogarGO.BL
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim(type:"id", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim(type: "id", user.Id.ToString()) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+        public async Task<ValidationResult> RegistrarUsuario(Usuario usuario)
+        {
+            var x = await Save(usuario, true);
+            return x;
         }
     }
 }
