@@ -6,13 +6,13 @@ namespace TuHogarGO.DB
     public class TuHogarDBContext: DbContext
     {
         protected readonly IConfiguration Configuration;
-
         public TuHogarDBContext(IConfiguration configuration)
         {
             Configuration = configuration;
         }
         public DbSet<Usuario> Usuarios { get; set; }
-
+        public DbSet<Rol> Roles { get; set; }
+        public DbSet<Plan> Planes { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             // connect to mysql with connection string from app settings

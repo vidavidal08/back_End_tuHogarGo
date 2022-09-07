@@ -22,4 +22,11 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.22.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Auth\Commands\" />
+    <Folder Include="Features\Auth\Models\" />
+    <Folder Include="Features\Auth\Queries\" />
+    <Folder Include="Features\Catalogs\" />
+  </ItemGroup>
+
 </Project>

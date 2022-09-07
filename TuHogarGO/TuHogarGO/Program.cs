@@ -3,6 +3,7 @@ using System.Reflection;
 using TuHogarGO.BL.Contracts;
 using TuHogarGO.BL.Implementation;
 using TuHogarGO.DB;
+using TuHogarGO.Entities;
 using TuHogarGO.Infraestructura.Auth;
 using TuHogarGO.Infraestructura.Config;
 using TuHogarGO.Repositories;
@@ -17,14 +18,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<TuHogarDBContext>();
-
-builder.Services.AddScoped<IUsuariosRepository, UsuariosRepository>();
-builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
-// Automapper Scans for all profiles in an assembly
-// See automapper profiles in ~/Automapper/Profiles/
+ConfigureServices(builder.Services);
+
 builder.Services.AddAutoMapper(x =>
 {
     x.AddMaps(currentAssembly);
@@ -54,3 +51,16 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+static void ConfigureServices(IServiceCollection services)
+{
+    services.AddScoped<TuHogarDBContext>();
+    
+    services.AddScoped<IUsuariosRepository, UsuariosRepository>();
+    services.AddScoped<IRepository<Rol>, RolesRepository>();
+    services.AddScoped<IRepository<Plan>, PlanesRepository>();
+
+    services.AddScoped<IUsuarioService, UsuarioService>();
+    services.AddScoped<IRolesBL, RolesBL>();
+    services.AddScoped<IPlanesService, PlanesService>();
+}
