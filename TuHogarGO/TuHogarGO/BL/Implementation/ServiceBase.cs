@@ -40,6 +40,15 @@ namespace TuHogarGO.BL.Implementation
             }
             return validationResult;
         }
+        public virtual T GetById(int Id)
+        {
+            var item = _repository.Find(Id);
+            return item;
+        }
+        public virtual IList<T> GetAll()
+        {
+            return _repository.Query().ToList();
+        }
         protected virtual async Task<ValidationResult> ValidateBeforeInsert(T item)
         {
             return await Task.FromResult(new ValidationResult());

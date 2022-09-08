@@ -59,8 +59,14 @@ static void ConfigureServices(IServiceCollection services)
     services.AddScoped<IUsuariosRepository, UsuariosRepository>();
     services.AddScoped<IRepository<Rol>, RolesRepository>();
     services.AddScoped<IRepository<Plan>, PlanesRepository>();
+    services.AddScoped<IRepository<Pais>, PaisRepository>();
+    services.AddScoped<IRepository<Estado>, EstadoRepository>();
+    services.AddScoped<IRepository<Municipio>, MunicipioRepository>();
 
     services.AddScoped<IUsuarioService, UsuarioService>();
     services.AddScoped<IRolesBL, RolesBL>();
     services.AddScoped<IPlanesService, PlanesService>();
+    services.AddScoped<IPaisService, PaisService>();
+    services.AddScoped<IEstadoService, EstadoService>();
+    services.AddScoped<IMunicipioService, MunicipioService>();
 }
