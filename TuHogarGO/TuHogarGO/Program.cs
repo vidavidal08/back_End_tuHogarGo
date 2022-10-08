@@ -63,6 +63,7 @@ static void ConfigureServices(IServiceCollection services)
     services.AddScoped<IRepository<Estado>, EstadoRepository>();
     services.AddScoped<IRepository<Municipio>, MunicipioRepository>();
     services.AddScoped<IRepository<TipoInmueble>, TipoInmuebleRepository>();
+    services.AddScoped<IRepository<Publicacion>, PublicacionesRepository>();
 
     services.AddScoped<IUsuarioService, UsuarioService>();
     services.AddScoped<IRolesBL, RolesBL>();
@@ -71,4 +72,5 @@ static void ConfigureServices(IServiceCollection services)
     services.AddScoped<IEstadoService, EstadoService>();
     services.AddScoped<IMunicipioService, MunicipioService>();
     services.AddScoped<ITipoInmuebleService, TipoInmuebleService>();
+    services.AddScoped<IPublicacionesService, PublicacionesService>();
 }

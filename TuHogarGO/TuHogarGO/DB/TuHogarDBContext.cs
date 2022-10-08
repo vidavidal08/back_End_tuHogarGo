@@ -17,6 +17,7 @@ namespace TuHogarGO.DB
         public DbSet<Estado> Estados { get; set; }
         public DbSet<Municipio> Municipios { get; set; }
         public DbSet<TipoInmueble> TipoInmuebles { get; set; }
+        public DbSet<Publicacion> Publicaciones { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             // connect to mysql with connection string from app settings
